@@ -1,42 +1,81 @@
 # Rhodes Recruitment Calculator
 
-## Open the site
+A fan-made Arknights recruitment calculator for exploring the English recruitment pool. Select your available tags, compare combinations, and browse matching operators in a lightweight interface built with HTML, CSS, and JavaScript.
 
-1. Extract the entire ZIP into a folder.
-2. Double-click `index.html` to open it in your browser.
-3. Keep the four website files together in that folder.
+## Features
 
-No installation, internet connection, or local server is needed to use the calculator. The source links open external websites if you choose to click them.
+- **Tag combinations:** Select up to five tags and compare subsets of one to three tags.
+- **Minimum rarity:** See the lowest-rarity operator for each combination, ranked by highest minimum rarity first.
+- **Three result views:** Browse combinations, operators matching every selected tag, or the full roster.
+- **Search and filters:** Search operator names, toggle lower rarities, and sort by name or rarity.
+- **Operator details:** Open a card to view its class, position, rarity, and tags.
+- **Quick selections:** Start with Top Operator, Senior Operator, Healing + Support, or Robot.
+- **Responsive layout:** Use the calculator on desktop or mobile.
+- **Offline use:** Run the downloaded files without an account, backend, or build step.
 
-## What each file does
+## Getting started
 
-| File | Responsibility | Start here when changing… |
-| --- | --- | --- |
-| `index.html` | Structure, sections, controls, and links to the other files | Headings, page text, buttons, or layout sections |
-| `style.css` | Appearance and responsive layout | Colors, spacing, card sizes, or phone styling |
-| `operators.js` | The 158 operator records | Names, rarities, classes, positions, and affix tags |
-| `script.js` | Matching, combinations, interactions, and rendering | How selections and results behave |
+### Open locally
 
-`operators.js` is a JavaScript data file rather than a fetched JSON file. This lets you open `index.html` directly: browsers can restrict loading a separate JSON file with `fetch()` when a page is opened from your computer.
+1. Clone this repository or choose **Code → Download ZIP** and extract it.
+2. Open `index.html` in a modern browser.
+3. Keep `index.html`, `style.css`, `operators.js`, and `script.js` in the same folder.
 
-## Suggested reading order
+No installation or local server is required. External source links need an internet connection.
 
-1. Read `index.html` to see the page structure.
-2. Read the first operator in `operators.js` to understand a data record.
-3. In `script.js`, read `state`, `findMatches()`, and `generateCombinations()`.
-4. Follow `toggleTag()` into `render()` to see how clicks update results.
-5. Read `buildOperatorCard()` to see how data becomes HTML.
-6. Read the numbered sections of `style.css` to understand the design.
+### Optional local server
 
-## How the files connect
+If you have [Node.js](https://nodejs.org/) installed, open a terminal in the project folder and run:
 
-The HTML loads the stylesheet, then runs `operators.js` before `script.js`. Both scripts use `defer`, so the page structure is ready before startup runs.
+```sh
+npx http-server . -a 127.0.0.1 -p 8080 -c-1
+```
 
-`operators.js` supplies an array named `window.RECRUITMENT_OPERATORS`. `script.js` reads that array, adds class/position/rarity tags, attaches event listeners, and renders the initial Top Operator selection.
+In Windows PowerShell, use `npx.cmd` if `npx` is blocked by the script execution policy.
 
-## Editing an operator
+Open [http://127.0.0.1:8080](http://127.0.0.1:8080). Keep the terminal running, refresh the browser after editing files, and press **Ctrl+C** to stop the server.
 
-Each operator record has these fields:
+## How to use
+
+1. Select up to five tags from your recruitment options.
+2. Open **Combinations** to compare valid subsets of up to three tags.
+3. Check each combination's **Lowest match** value and operator list.
+4. Use **All selected tags** to inspect operators matching every selected tag. When more than three are selected, this is a comparison view; an actual recruitment accepts at most three tags.
+5. Open **Full roster** to browse every operator in the embedded dataset, regardless of selected tags.
+
+Search and rarity filters only change which results are visible. They do **not** raise a combination's minimum rarity. Six-star operators appear in tag-matching views only when the relevant tags include **Top Operator**.
+
+## Dataset and limitations
+
+The embedded English recruitment snapshot contains **158 operators**:
+
+| Rarity | Operators |
+| --- | ---: |
+| 6★ | 34 |
+| 5★ | 54 |
+| 4★ | 41 |
+| 3★ | 16 |
+| 2★ | 5 |
+| 1★ | 8 |
+
+This dataset is maintained in the repository and does not refresh automatically. It may differ from the current in-game recruitment pool.
+
+The calculator compares tag compatibility and assumes the selected tags remain. It does not calculate recruitment odds, tag-drop probabilities, or availability at a particular recruitment duration. Operator cards use initials instead of portrait artwork.
+
+## Project structure
+
+| File | Purpose |
+| --- | --- |
+| `index.html` | Page structure, controls, and script loading |
+| `style.css` | Theme, component styles, and responsive layout |
+| `operators.js` | Embedded operator records |
+| `script.js` | Tag matching, combinations, filtering, and interactions |
+
+The project uses plain HTML, CSS, and JavaScript with no runtime dependencies or build step. Operator data is loaded as a regular script, so the calculator can work directly from a local file.
+
+### Updating operator data
+
+Edit the records in `operators.js` using this structure:
 
 ```javascript
 {
@@ -48,23 +87,15 @@ Each operator record has these fields:
 }
 ```
 
-Keep the field names and punctuation intact. `tags` contains affixes; the program adds the class, position, and rarity tag automatically. Save changes, then refresh the browser.
+The app adds class, position, and rarity tags automatically. If you introduce a new selectable tag, update `TAG_GROUPS` in `script.js` as well. When changing the dataset size, update the snapshot counts in `index.html` and this README.
 
-## Behavior retained
+### Hosting on GitHub Pages
 
-- 158 operators, including 34 Top Operators and 54 Senior Operators.
-- Up to five selected tags; combinations use one to three.
-- Six-star operators require Top Operator in tag-matching views.
-- Full roster includes everyone regardless of selected tags.
-- Operator name search, rarity visibility controls, and name/rarity sorting.
-- Clickable operator details, quick selections, and Reset.
-- Rarity minimums use every matching operator before display filters.
-- Responsive layouts for desktop and phone screens.
+In the repository, open **Settings → Pages**. Under **Build and deployment**, choose **Deploy from a branch**, select **main** and **/ (root)**, then save. Once deployment completes, use the **Visit site** link shown there.
 
-## Data scope
+## Sources and credits
 
-This preserves the EN dataset embedded in the previous version. It is a snapshot, not an automatically updated live list. No operator data was added or removed during separation.
+- [Arknights EN game data](https://github.com/ArknightsAssets/ArknightsGamedata/tree/master/en/gamedata/excel) — operator properties and recruitment membership.
+- [Original recruitment calculator](https://akgcc.github.io/recruit/) — reference calculator credited by this project.
 
-Sources: [EN game data](https://github.com/ArknightsAssets/ArknightsGamedata/tree/master/en/gamedata/excel) and the [original calculator](https://akgcc.github.io/recruit/).
-
-The calculator compares tag compatibility and assumes tags remain. It does not model recruitment time, tag-drop probabilities, or recruitment odds. Initials are used instead of portrait artwork. Fan-made and not affiliated with Arknights.
+This is an unofficial fan project and is not affiliated with or endorsed by Arknights or its developers and publishers.
