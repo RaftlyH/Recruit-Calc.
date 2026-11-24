@@ -18,8 +18,8 @@ A fan-made Arknights recruitment calculator for exploring the English recruitmen
 ### Open locally
 
 1. Clone this repository or choose **Code → Download ZIP** and extract it.
-2. Open `index.html` in a modern browser.
-3. Keep `index.html`, `style.css`, `operators.js`, and `script.js` in the same folder.
+2. Open `docs/index.html` in a modern browser.
+3. Keep the four website files together inside `docs/`.
 
 No installation or local server is required. External source links need an internet connection.
 
@@ -28,7 +28,7 @@ No installation or local server is required. External source links need an inter
 If you have [Node.js](https://nodejs.org/) installed, open a terminal in the project folder and run:
 
 ```sh
-npx http-server . -a 127.0.0.1 -p 8080 -c-1
+npx http-server docs -a 127.0.0.1 -p 8080 -c-1
 ```
 
 In Windows PowerShell, use `npx.cmd` if `npx` is blocked by the script execution policy.
@@ -66,16 +66,18 @@ The calculator compares tag compatibility and assumes the selected tags remain. 
 
 | File | Purpose |
 | --- | --- |
-| `index.html` | Page structure, controls, and script loading |
-| `style.css` | Theme, component styles, and responsive layout |
-| `operators.js` | Embedded operator records |
-| `script.js` | Tag matching, combinations, filtering, and interactions |
+| `docs/index.html` | Page structure, controls, and script loading |
+| `docs/style.css` | Theme, component styles, and responsive layout |
+| `docs/operators.js` | Embedded operator records |
+| `docs/script.js` | Tag matching, combinations, filtering, and interactions |
+| `.gitignore` | Files excluded from version control |
+| `requirements.txt` | Dependency notes; no Python packages required |
 
 The project uses plain HTML, CSS, and JavaScript with no runtime dependencies or build step. Operator data is loaded as a regular script, so the calculator can work directly from a local file.
 
 ### Updating operator data
 
-Edit the records in `operators.js` using this structure:
+Edit the records in `docs/operators.js` using this structure:
 
 ```javascript
 {
@@ -87,11 +89,11 @@ Edit the records in `operators.js` using this structure:
 }
 ```
 
-The app adds class, position, and rarity tags automatically. If you introduce a new selectable tag, update `TAG_GROUPS` in `script.js` as well. When changing the dataset size, update the snapshot counts in `index.html` and this README.
+The app adds class, position, and rarity tags automatically. If you introduce a new selectable tag, update `TAG_GROUPS` in `docs/script.js` as well. When changing the dataset size, update the snapshot counts in `docs/index.html` and this README.
 
 ### Hosting on GitHub Pages
 
-In the repository, open **Settings → Pages**. Under **Build and deployment**, choose **Deploy from a branch**, select **main** and **/ (root)**, then save. Once deployment completes, use the **Visit site** link shown there.
+In the repository, open **Settings → Pages**. Under **Build and deployment**, choose **Deploy from a branch**, select **main** and **/docs**, then save. If the site previously published from **/ (root)**, change that folder to **/docs**. Once deployment completes, use the **Visit site** link shown there.
 
 ## Sources and credits
 
