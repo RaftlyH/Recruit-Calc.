@@ -1,0 +1,3 @@
+# No Python packages are required for this project.
+# Open index.html in a modern browser to run the calculator.
+# Node.js is optional for the local server described in README.md.

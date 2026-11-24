@@ -1,0 +1,23 @@
+# Local dependencies and generated output
+node_modules/
+dist/
+coverage/
+.cache/
+
+# Local environment settings
+.env
+.env.*
+!.env.example
+
+# Logs
+*.log
+npm-debug.log*
+
+# Editor and operating system files
+.vscode/
+.idea/
+*.swp
+*.swo
+.DS_Store
+Thumbs.db
+Desktop.ini
