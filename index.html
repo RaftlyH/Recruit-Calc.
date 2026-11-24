@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Rhodes — Recruitment Calculator</title>
+
+  <!-- Appearance lives in its own file. -->
+  <link rel="stylesheet" href="style.css">
+
+  <!-- Load the data first, then the program. defer waits for the HTML to load. -->
+  <script src="operators.js" defer></script>
+  <script src="script.js" defer></script>
+</head>
+<body>
+  <header>
+    <div class="brand">
+      <div class="logo" aria-hidden="true">R</div>
+      <div>RHODES<small>RECRUITMENT INTELLIGENCE</small></div>
+    </div>
+    <span class="server">EN recruitment pool</span>
+  </header>
+
+  <main>
+    <!-- Introduction and totals (JavaScript fills in the numbers). -->
+    <div class="intro">
+      <div>
+        <div class="eyebrow">Personnel / Recruitment</div>
+        <h1>Good tags. Better recruits.</h1>
+        <p>The full English recruitment snapshot, with tag combinations.</p>
+      </div>
+      <div class="stats">
+        <div><b id="total-stat"></b><span>Recruitable operators</span></div>
+        <div><b id="top-stat"></b><span>Top Operators</span></div>
+        <div><b id="senior-stat"></b><span>Senior Operators</span></div>
+      </div>
+    </div>
+
+    <div class="layout">
+      <section class="panel" aria-label="Choose recruitment tags">
+        <div class="panel-head">
+          <h2>Recruitment tags</h2>
+          <small><strong id="selection-count">0</strong> / 5 selected</small>
+        </div>
+        <div id="tag-groups"></div>
+      </section>
+
+      <aside>
+        <div class="panel sidebar">
+          <div class="side-section">
+            <h3>Your selection</h3>
+            <div id="chosen" class="chosen"></div>
+            <div id="status" class="status" role="status"></div>
+            <button id="reset" class="reset">↺ &nbsp; Reset tags</button>
+          </div>
+          <div class="side-section">
+            <h3>Quick selections</h3>
+            <button class="preset" data-preset="Top Operator">Top Operator <span>↗</span></button>
+            <button class="preset" data-preset="Senior Operator">Senior Operator <span>↗</span></button>
+            <button class="preset" data-preset="Healing,Support">Healing + Support <span>↗</span></button>
+            <button class="preset" data-preset="Robot">Robot <span>↗</span></button>
+          </div>
+          <div class="side-section">
+            <h3>Before you recruit</h3>
+            <p>Compare subsets of one to three tags. Results assume those tags remain.</p>
+            <p>Use <b>9 hours</b> with Top Operator for the 6★ guarantee. Recruitment time and tag drops affect actual outcomes; this view compares tag compatibility.</p>
+          </div>
+        </div>
+        <div class="source-note">
+          Embedded EN snapshot: 158 operators, including 34 Top Operators.
+          No live refresh. Initials replace portrait art.<br>
+          Sources:
+          <a href="https://github.com/ArknightsAssets/ArknightsGamedata/tree/master/en/gamedata/excel" target="_blank" rel="noopener noreferrer">game data</a> ·
+          <a href="https://akgcc.github.io/recruit/" target="_blank" rel="noopener noreferrer">original calculator</a>
+        </div>
+      </aside>
+    </div>
+
+    <!-- Results: switching tabs changes what is rendered here. -->
+    <section class="results" aria-label="Recruitment results">
+      <div class="results-head">
+        <div class="tabs" role="tablist" aria-label="Result view">
+          <button id="combos-tab" class="tab" role="tab" aria-controls="results" aria-selected="true">Combinations <span id="combo-count" class="badge"></span></button>
+          <button id="matches-tab" class="tab" role="tab" aria-controls="results" aria-selected="false">All selected tags <span id="match-count" class="badge"></span></button>
+          <button id="roster-tab" class="tab" role="tab" aria-controls="results" aria-selected="false">Full roster <span id="roster-count" class="badge"></span></button>
+        </div>
+        <input id="search" class="search" type="search" placeholder="Search operator names…" aria-label="Search operator names">
+      </div>
+      <div class="toolbar">
+        <div id="summary" class="summary" aria-live="polite"></div>
+        <div class="filters">
+          <label><input type="checkbox" id="robots" checked> Show 1★</label>
+          <label><input type="checkbox" id="low" checked> Show 2–3★</label>
+          <label>Sort
+            <select id="sort">
+              <option value="rarity">Highest rarity</option>
+              <option value="name">Name A–Z</option>
+            </select>
+          </label>
+        </div>
+      </div>
+      <div id="view-note"></div>
+      <div id="results" role="tabpanel" aria-labelledby="combos-tab"></div>
+    </section>
+
+    <footer>
+      <span>RHODES / RECRUITMENT LAB · Fan-made. Not affiliated with Arknights.</span>
+      <span>Display filters do not change rarity minimums.</span>
+    </footer>
+  </main>
+
+  <!-- One reusable dialog displays whichever operator you click. -->
+  <dialog id="detail" aria-labelledby="detail-name">
+    <button id="close-detail" class="close" aria-label="Close operator details">×</button>
+    <div id="detail-class" class="eyebrow"></div>
+    <h2 id="detail-name"></h2>
+    <div id="detail-stars" class="detail-stars"></div>
+    <div id="detail-tags" class="dialog-tags"></div>
+    <p id="detail-note" class="dialog-note"></p>
+  </dialog>
+</body>
+</html>
